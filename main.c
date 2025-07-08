@@ -357,20 +357,23 @@ int myset(char **setkeybuf,char **setvaluebuf,char **tokens,int *setkeyvalue,int
     return 0;
   }
   if(equalptr!=NULL)
-  {
+  { 
     *equalptr='\0';
     for(int i=0;i<*setkeyvalue;i++)
     {
         if(!strcmp(setkeybuf[i],tokens[1]))
         {
             strcpy(setvaluebuf[i],equalptr+1);
+            return 0;
         }
        
     }
-    setkeybuf[*setkeyvalue]=tokens[1];
+    
+    strcpy(setkeybuf[*setkeyvalue],tokens[1]);
     strcpy(setvaluebuf[*setkeyvalue],equalptr+1);
     *setkeyvalue+=1;
     *setvaluevalue+=1;
+  
     
 
   }
@@ -456,7 +459,7 @@ int saveinhistory(char **historybuffer,int historycount, int nexthistory,FILE *h
     int bin;
     //fseek(history,0,SEEK_SET);
     //fprintf(history,"%d",nexthistory-1);
-    //fseek(history,1,SEEK_CUR);
+    fseek(history,1,SEEK_CUR);
 
     if(nexthistory<101)
     {
